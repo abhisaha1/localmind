@@ -2,9 +2,9 @@
 export const MODELS = {
   'text-generation': [
     {
-      id: 'onnx-community/Qwen2.5-0.5B-Instruct',
-      label: 'Qwen2.5 0.5B Instruct',
-      size: '~400MB',
+      id: 'onnx-community/Qwen2.5-Coder-0.5B-Instruct',
+      label: 'Qwen2.5 0.5B Coder',
+      size: '~800MB',
       dtype: 'q4',
       chat: true,
       note: "Alibaba's 0.5B instruction model. Good quality for size.",
@@ -20,7 +20,7 @@ export const MODELS = {
     {
       id: 'onnx-community/Llama-3.2-1B-Instruct-q4f16',
       label: 'Llama 3.2 1B Instruct',
-      size: '~700MB',
+      size: '~1000MB',
       dtype: 'q4f16',
       chat: true,
       note: "Meta's Llama 3.2 1B — best quality here. Larger download.",
@@ -141,7 +141,7 @@ export function getInputPlaceholder(task) {
   return {
     'text-generation': 'Ask anything… (Shift+Enter for newline)',
     'sentiment-analysis': 'Type text to analyse…',
-    translation: 'Enter text to translate…',
+    // translation: 'Enter text to translate…',
     summarization: 'Paste article to summarise…',
     'question-answering': 'Ask a question (set context in Config)…',
     'zero-shot-classification': 'Enter text to classify…',

@@ -14,7 +14,8 @@ import {
   resetModel, 
   resetStats,
   isModelLoading, 
-  isModelGenerating 
+  isModelGenerating,
+  cancelCurrentDownload
 } from './inference.mjs';
 import { addUserMessage, addAiMessage, clearChat } from './chat.mjs';
 
@@ -47,6 +48,9 @@ function bindEventHandlers() {
   
   // Clear chat button
   $('clearBtn').addEventListener('click', handleClearChat);
+  
+  // Cancel download button
+  $('cancelBtn').addEventListener('click', handleCancelDownload);
   
   // Send button
   $('sendBtn').addEventListener('click', handleSendMessage);
@@ -90,6 +94,10 @@ async function handleLoadModel() {
 function handleClearChat() {
   clearChat();
   resetStats();
+}
+
+function handleCancelDownload() {
+  cancelCurrentDownload();
 }
 
 async function handleSendMessage() {

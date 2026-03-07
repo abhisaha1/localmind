@@ -34,7 +34,7 @@
           <select id="taskSelect">
             <option value="text-generation">💬 Text Generation</option>
             <option value="sentiment-analysis">💡 Sentiment Analysis</option>
-            <option value="translation">🌐 Translation</option>
+            <!-- <option value="translation">🌐 Translation</option> -->
             <option value="summarization">📝 Summarization</option>
             <option value="question-answering">❓ Question Answering</option>
             <option value="zero-shot-classification">🏷 Zero-Shot</option>
@@ -99,12 +99,18 @@
             ✕ CLEAR CHAT
           </button>
           <div class="progress-wrap" id="progressWrap">
-            <div class="progress-label">
-              <span id="progressLabel">Initialising…</span
-              ><span id="progressPct"></span>
+            <div class="progress-header">
+              <span id="progressHeader">Downloading files</span>
+              <button
+                class="btn btn-cancel"
+                id="cancelBtn"
+                style="margin-left: 8px; font-size: 10px; padding: 2px 6px"
+              >
+                ✕ Cancel
+              </button>
             </div>
-            <div class="progress-bar">
-              <div class="progress-fill indeterminate" id="progressFill"></div>
+            <div class="progress-files" id="progressFiles">
+              <!-- Individual file progress lines will be inserted here -->
             </div>
           </div>
         </div>
@@ -116,14 +122,14 @@
               <div class="gauge-val" id="gaugeLatency">—</div>
               <div class="gauge-label">LATENCY MS</div>
             </div>
-            <div class="gauge-item">
+            <!-- <div class="gauge-item">
               <div class="gauge-val" id="gaugeTotal">0</div>
               <div class="gauge-label">TOTAL RUNS</div>
             </div>
             <div class="gauge-item">
               <div class="gauge-val" id="gaugeSize">—</div>
               <div class="gauge-label">MODEL SIZE</div>
-            </div>
+            </div> -->
             <div class="gauge-item">
               <div class="gauge-val" id="gaugeDevice">—</div>
               <div class="gauge-label">DEVICE</div>
@@ -139,8 +145,8 @@
             <p>
               Choose a task + model,<br />click
               <strong style="color: var(--accent)">LOAD MODEL</strong
-              >.<br /><br />First load downloads the ONNX weights<br />(cached
-              in browser after that).<br />Everything runs locally — no server.
+              >.<br /><br />First load downloads the model<br />(cached in
+              browser after that).<br />Everything runs locally — no server.
             </p>
           </div>
         </div>

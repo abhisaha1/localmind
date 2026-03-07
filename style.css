@@ -257,6 +257,19 @@ select {
   border-color: var(--border);
   cursor: not-allowed;
 }
+.btn-cancel {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid rgba(240, 78, 78, 0.3);
+  font-size: 10px;
+  padding: 2px 6px;
+  width: auto;
+  display: none;
+}
+.btn-cancel:hover {
+  background: rgba(240, 78, 78, 0.1);
+  border-color: var(--danger);
+}
 
 .progress-wrap {
   margin-top: 12px;
@@ -265,27 +278,45 @@ select {
 .progress-wrap.visible {
   display: block;
 }
-.progress-label {
+.progress-header {
   font-size: 10px;
   color: var(--muted);
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.progress-bar {
+.progress-files {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.progress-file {
+  font-size: 9px;
+  color: var(--muted);
+}
+.progress-file-name {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+.progress-file-bar {
   height: 2px;
   background: var(--border);
   overflow: hidden;
 }
-.progress-fill {
+.progress-file-fill {
   height: 100%;
   background: var(--accent);
   transition: width 0.3s ease;
   width: 0;
 }
-.progress-fill.indeterminate {
+.progress-file-fill.indeterminate {
   animation: indet 1.4s infinite;
   width: 30% !important;
+}
+.progress-file-fill.complete {
+  background: var(--accent2);
 }
 @keyframes indet {
   0% {
