@@ -2,12 +2,12 @@
 export const MODELS = {
   'text-generation': [
     {
-      id: 'onnx-community/SmolLM2-135M-Instruct',
-      label: 'SmolLM2 135M',
-      size: '~90MB',
+      id: 'onnx-community/Qwen2.5-0.5B-Instruct',
+      label: 'Qwen2.5 0.5B Instruct',
+      size: '~400MB',
       dtype: 'q4',
       chat: true,
-      note: 'Smallest useful LM. Great for quick tests. HuggingFaceTB model.',
+      note: "Alibaba's 0.5B instruction model. Good quality for size.",
     },
     {
       id: 'onnx-community/Qwen2.5-0.5B-Instruct',
@@ -67,11 +67,18 @@ export const MODELS = {
   ],
   summarization: [
     {
-      id: 'Xenova/distilbart-cnn-6-6',
+      id: 'Xenova/distilbart-cnn-12-6',
       label: 'DistilBART CNN',
-      size: '~300MB',
+      size: '~500MB',
       dtype: 'fp32',
-      note: 'Distilled BART — good news/article summariser.',
+      note: 'A larger version with more layers, offering a better balance between speed and quality.',
+    },
+    {
+      id: 'Xenova/t5-base',
+      label: 'T5 Base',
+      size: '~530MB',
+      dtype: 'fp32/q8',
+      note: 'Better summaries while remaining relatively lightweight for browsers.',
     },
     {
       id: 'Xenova/t5-small',
