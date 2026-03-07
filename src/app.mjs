@@ -53,6 +53,10 @@ function bindEventHandlers() {
   
   // Input keydown (Enter to send)
   $('userInput').addEventListener('keydown', handleKeyDown);
+  
+  // Mobile sidebar toggle
+  $('hamburgerBtn').addEventListener('click', toggleSidebar);
+  $('sidebarOverlay').addEventListener('click', closeSidebar);
 }
 
 function handleTaskChange() {
@@ -125,5 +129,21 @@ function handleKeyDown(event) {
     event.preventDefault();
     handleSendMessage();
   }
+}
+
+function toggleSidebar() {
+  const sidebar = document.querySelector('.panel-left');
+  const overlay = $('sidebarOverlay');
+  
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('visible');
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.panel-left');
+  const overlay = $('sidebarOverlay');
+  
+  sidebar.classList.remove('open');
+  overlay.classList.remove('visible');
 }
 

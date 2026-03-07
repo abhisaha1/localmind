@@ -12,6 +12,7 @@
   </head>
   <body>
     <header>
+      <button class="hamburger" id="hamburgerBtn">☰</button>
       <div class="logo">LOCAL<span>MIND</span></div>
       <div class="status-bar">
         <div class="status-item">
@@ -50,7 +51,7 @@
           <div class="section-label">Config</div>
           <div id="configTextGen" class="task-config">
             <div class="field-label">Max new tokens</div>
-            <input type="text" id="maxTokens" value="256" />
+            <input type="text" id="maxTokens" value="2560" />
             <div class="field-row">
               <div>
                 <div class="field-label">Temperature</div>
@@ -93,14 +94,8 @@
         </div>
 
         <div class="panel-section">
-          <button class="btn btn-primary" id="loadBtn">
-            ⬇ LOAD MODEL
-          </button>
-          <button
-            class="btn btn-secondary"
-            id="clearBtn"
-            disabled
-          >
+          <button class="btn btn-primary" id="loadBtn">⬇ LOAD MODEL</button>
+          <button class="btn btn-secondary" id="clearBtn" disabled>
             ✕ CLEAR CHAT
           </button>
           <div class="progress-wrap" id="progressWrap">
@@ -155,22 +150,17 @@
             placeholder="Load a model first…"
             disabled
           ></textarea>
-          <button
-            class="send-btn"
-            id="sendBtn"
-            disabled
-          >
-            →
-          </button>
+          <button class="send-btn" id="sendBtn" disabled>→</button>
         </div>
       </div>
     </main>
 
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="error-toast" id="errorToast"></div>
 
     <script type="module">
       import { initializeApp } from './src/app.mjs';
-      
+
       // Initialize the application when the DOM is ready
       initializeApp();
     </script>
