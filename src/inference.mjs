@@ -180,11 +180,11 @@ async function runSentimentAnalysis(text, onProgressCallback) {
   // Show progress indicator if callback provided
   if (onProgressCallback) {
     onProgressCallback('Analyzing sentiment...');
-    
+
     // Add a small delay to show the progress message
     await new Promise(resolve => setTimeout(resolve, 100));
   }
-  
+
   const result = await currentPipeline(text);
   const item = Array.isArray(result) ? result[0] : result;
   return `${item.label}\nConfidence: ${(item.score * 100).toFixed(1)}%`;
@@ -194,11 +194,11 @@ async function runTranslation(text, onProgressCallback) {
   // Show progress indicator if callback provided
   if (onProgressCallback) {
     onProgressCallback('Translating text...');
-    
+
     // Add a small delay to show the progress message
     await new Promise(resolve => setTimeout(resolve, 100));
   }
-  
+
   const result = await currentPipeline(text);
   const item = Array.isArray(result) ? result[0] : result;
   return item.translation_text || JSON.stringify(item, null, 2);
@@ -208,18 +208,18 @@ async function runSummarization(text, onProgressCallback) {
   // Show progress indicator if callback provided
   if (onProgressCallback) {
     onProgressCallback('Analyzing text...');
-    
+
     // Add a small delay to show the progress message
     await new Promise(resolve => setTimeout(resolve, 100));
-    
+
     onProgressCallback('Generating summary...');
   }
-  
+
   const result = await currentPipeline(text, {
     max_new_tokens: 150,
-    min_new_tokens: 20,
+    // min_new_tokens: 20,
   });
-  
+  console.log(result)
   const item = Array.isArray(result) ? result[0] : result;
   return item.summary_text || JSON.stringify(item, null, 2);
 }
@@ -233,10 +233,10 @@ async function runQuestionAnswering(text, onProgressCallback) {
   // Show progress indicator if callback provided
   if (onProgressCallback) {
     onProgressCallback('Processing question...');
-    
+
     // Add a small delay to show the progress message
     await new Promise(resolve => setTimeout(resolve, 100));
-    
+
     onProgressCallback('Finding answer...');
   }
 
@@ -258,10 +258,10 @@ async function runZeroShotClassification(text, onProgressCallback) {
   // Show progress indicator if callback provided
   if (onProgressCallback) {
     onProgressCallback('Analyzing text...');
-    
+
     // Add a small delay to show the progress message
     await new Promise(resolve => setTimeout(resolve, 100));
-    
+
     onProgressCallback('Classifying against labels...');
   }
 

@@ -30,7 +30,7 @@ export const MODELS = {
     {
       id: 'Xenova/distilbert-base-uncased-finetuned-sst-2-english',
       label: 'DistilBERT SST-2',
-      size: '~67MB',
+      size: '~250MB',
       dtype: 'fp32',
       note: 'Fast binary sentiment: POSITIVE / NEGATIVE.',
     },
@@ -77,7 +77,7 @@ export const MODELS = {
       id: 'Xenova/t5-base',
       label: 'T5 Base',
       size: '~530MB',
-      dtype: 'fp32/q8',
+      dtype: 'fp32',
       note: 'Better summaries while remaining relatively lightweight for browsers.',
     },
     {
