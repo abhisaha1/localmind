@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOCAL MIND — Transformers.js Runner</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" data-precedence="next" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">LOCAL<span>MIND</span></div>
+      <div class="status-bar">
+        <div class="status-item">
+          <div class="dot" id="dotModel"></div>
+          <span id="statusModel">NO MODEL</span>
+        </div>
+        <div class="status-item">
+          <div class="dot" id="dotWebGPU"></div>
+          <span id="statusWebGPU">CHECKING…</span>
+        </div>
+        <div class="status-item"><span id="statusLatency">—</span></div>
+      </div>
+    </header>
+
+    <main>
+      <div class="panel-left">
+        <div class="panel-section">
+          <div class="section-label">Task</div>
+          <select id="taskSelect">
+            <option value="text-generation">💬 Text Generation</option>
+            <option value="sentiment-analysis">💡 Sentiment Analysis</option>
+            <option value="translation">🌐 Translation</option>
+            <option value="summarization">📝 Summarization</option>
+            <option value="question-answering">❓ Question Answering</option>
+            <option value="zero-shot-classification">🏷 Zero-Shot</option>
+          </select>
+        </div>
+
+        <div class="panel-section">
+          <div class="section-label">Model</div>
+          <select id="modelSelect"></select>
+          <div class="model-info" id="modelInfo"></div>
+        </div>
+
+        <div class="panel-section">
+          <div class="section-label">Config</div>
+          <div id="configTextGen" class="task-config">
+            <div class="field-label">Max new tokens</div>
+            <input type="text" id="maxTokens" value="256" />
+            <div class="field-row">
+              <div>
+                <div class="field-label">Temperature</div>
+                <input type="text" id="temperature" value="0.7" />
+              </div>
+              <div>
+                <div class="field-label">Top-P</div>
+                <input type="text" id="topP" value="0.9" />
+              </div>
+            </div>
+          </div>
+          <div id="configQA" class="task-config">
+            <div class="field-label">Context passage (required)</div>
+            <textarea
+              id="qaContext"
+              style="
+                height: 90px;
+                margin-top: 4px;
+                display: block;
+                width: 100%;
+                resize: vertical;
+              "
+              placeholder="Paste context here…"
+            ></textarea>
+          </div>
+          <div id="configZeroShot" class="task-config">
+            <div class="field-label">Candidate labels (comma-separated)</div>
+            <input
+              type="text"
+              id="zeroShotLabels"
+              value="positive, negative, neutral"
+              style="margin-top: 4px"
+            />
+          </div>
+          <div id="configDefault" class="task-config visible">
+            <div style="font-size: 10px; color: var(--muted); line-height: 1.7">
+              No extra config needed for this task.
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <button class="btn btn-primary" id="loadBtn">
+            ⬇ LOAD MODEL
+          </button>
+          <button
+            class="btn btn-secondary"
+            id="clearBtn"
+            disabled
+          >
+            ✕ CLEAR CHAT
+          </button>
+          <div class="progress-wrap" id="progressWrap">
+            <div class="progress-label">
+              <span id="progressLabel">Initialising…</span
+              ><span id="progressPct"></span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill indeterminate" id="progressFill"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section" style="flex: 1">
+          <div class="section-label">Stats</div>
+          <div class="gauge-grid">
+            <div class="gauge-item">
+              <div class="gauge-val" id="gaugeLatency">—</div>
+              <div class="gauge-label">LATENCY MS</div>
+            </div>
+            <div class="gauge-item">
+              <div class="gauge-val" id="gaugeTotal">0</div>
+              <div class="gauge-label">TOTAL RUNS</div>
+            </div>
+            <div class="gauge-item">
+              <div class="gauge-val" id="gaugeSize">—</div>
+              <div class="gauge-label">MODEL SIZE</div>
+            </div>
+            <div class="gauge-item">
+              <div class="gauge-val" id="gaugeDevice">—</div>
+              <div class="gauge-label">DEVICE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-right">
+        <div class="chat-area" id="chatArea">
+          <div class="empty-state" id="emptyState">
+            <div class="empty-icon">⬡</div>
+            <p>
+              Choose a task + model,<br />click
+              <strong style="color: var(--accent)">LOAD MODEL</strong
+              >.<br /><br />First load downloads the ONNX weights<br />(cached
+              in browser after that).<br />Everything runs locally — no server.
+            </p>
+          </div>
+        </div>
+        <div class="input-area">
+          <textarea
+            id="userInput"
+            placeholder="Load a model first…"
+            disabled
+          ></textarea>
+          <button
+            class="send-btn"
+            id="sendBtn"
+            disabled
+          >
+            →
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <div class="error-toast" id="errorToast"></div>
+
+    <script type="module">
+      import { initializeApp } from './src/app.mjs';
+      
+      // Initialize the application when the DOM is ready
+      initializeApp();
+    </script>
+  </body>
+</html>
