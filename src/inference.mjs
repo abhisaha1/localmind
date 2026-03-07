@@ -98,15 +98,15 @@ export async function runInference(text, onStreamCallback = null) {
     if (currentTask === 'text-generation') {
       output = await runTextGeneration(text, onStreamCallback);
     } else if (currentTask === 'sentiment-analysis') {
-      output = await runSentimentAnalysis(text);
+      output = await runSentimentAnalysis(text, onStreamCallback);
     } else if (currentTask === 'translation') {
-      output = await runTranslation(text);
+      output = await runTranslation(text, onStreamCallback);
     } else if (currentTask === 'summarization') {
       output = await runSummarization(text, onStreamCallback);
     } else if (currentTask === 'question-answering') {
-      output = await runQuestionAnswering(text);
+      output = await runQuestionAnswering(text, onStreamCallback);
     } else if (currentTask === 'zero-shot-classification') {
-      output = await runZeroShotClassification(text);
+      output = await runZeroShotClassification(text, onStreamCallback);
     }
 
     const latency = Math.round(performance.now() - startTime);
@@ -176,13 +176,29 @@ async function runTextGeneration(text, onStreamCallback) {
   return output || '(no output)';
 }
 
-async function runSentimentAnalysis(text) {
+async function runSentimentAnalysis(text, onProgressCallback) {
+  // Show progress indicator if callback provided
+  if (onProgressCallback) {
+    onProgressCallback('Analyzing sentiment...');
+    
+    // Add a small delay to show the progress message
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+  
   const result = await currentPipeline(text);
   const item = Array.isArray(result) ? result[0] : result;
   return `${item.label}\nConfidence: ${(item.score * 100).toFixed(1)}%`;
 }
 
-async function runTranslation(text) {
+async function runTranslation(text, onProgressCallback) {
+  // Show progress indicator if callback provided
+  if (onProgressCallback) {
+    onProgressCallback('Translating text...');
+    
+    // Add a small delay to show the progress message
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+  
   const result = await currentPipeline(text);
   const item = Array.isArray(result) ? result[0] : result;
   return item.translation_text || JSON.stringify(item, null, 2);
@@ -208,10 +224,20 @@ async function runSummarization(text, onProgressCallback) {
   return item.summary_text || JSON.stringify(item, null, 2);
 }
 
-async function runQuestionAnswering(text) {
+async function runQuestionAnswering(text, onProgressCallback) {
   const context = $('qaContext').value.trim();
   if (!context) {
     throw new Error('Paste a context passage in the Config panel first.');
+  }
+
+  // Show progress indicator if callback provided
+  if (onProgressCallback) {
+    onProgressCallback('Processing question...');
+    
+    // Add a small delay to show the progress message
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    onProgressCallback('Finding answer...');
   }
 
   const result = await currentPipeline(text, context);
@@ -219,7 +245,7 @@ async function runQuestionAnswering(text) {
   return `Answer: ${result.answer}\nScore:  ${(result.score * 100).toFixed(1)}`;
 }
 
-async function runZeroShotClassification(text) {
+async function runZeroShotClassification(text, onProgressCallback) {
   const labels = $('zeroShotLabels')
     .value.split(',')
     .map(l => l.trim())
@@ -227,6 +253,16 @@ async function runZeroShotClassification(text) {
 
   if (!labels.length) {
     throw new Error('Add candidate labels in Config.');
+  }
+
+  // Show progress indicator if callback provided
+  if (onProgressCallback) {
+    onProgressCallback('Analyzing text...');
+    
+    // Add a small delay to show the progress message
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    onProgressCallback('Classifying against labels...');
   }
 
   const result = await currentPipeline(text, labels);
