@@ -96,19 +96,28 @@ async function handleSendMessage() {
   const text = $('userInput').value.trim();
   if (!text || isModelGenerating()) return;
   
+  const task = $('taskSelect').value;
+  
   // Clear input and disable controls
   $('userInput').value = '';
   setInputsEnabled(false);
   
-  // Add user message
+  // Add user message immediately
   addUserMessage(text);
   
-  // Add AI message with streaming
+  // Add AI message with appropriate streaming/progress state
+  const isStreamingTask = task === 'text-generation';
   const contentEl = addAiMessage('', true);
   
-  // Run inference with streaming callback
-  const output = await runInference(text, (streamedText) => {
-    contentEl.textContent = streamedText;
+  // Run inference with appropriate callback
+  const output = await runInference(text, (content) => {
+    if (isStreamingTask) {
+      // For streaming tasks, update content progressively
+      contentEl.textContent = content;
+    } else {
+      // For non-streaming tasks, show progress messages
+      contentEl.textContent = content;
+    }
     $('chatArea').scrollTop = 99999;
   });
   
@@ -119,7 +128,6 @@ async function handleSendMessage() {
   contentEl.classList.remove('streaming');
   
   // Re-enable controls
-  const task = $('taskSelect').value;
   const placeholder = getInputPlaceholder(task);
   setInputsEnabled(true, placeholder);
 }

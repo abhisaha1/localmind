@@ -102,7 +102,7 @@ export async function runInference(text, onStreamCallback = null) {
     } else if (currentTask === 'translation') {
       output = await runTranslation(text);
     } else if (currentTask === 'summarization') {
-      output = await runSummarization(text);
+      output = await runSummarization(text, onStreamCallback);
     } else if (currentTask === 'question-answering') {
       output = await runQuestionAnswering(text);
     } else if (currentTask === 'zero-shot-classification') {
@@ -188,11 +188,22 @@ async function runTranslation(text) {
   return item.translation_text || JSON.stringify(item, null, 2);
 }
 
-async function runSummarization(text) {
+async function runSummarization(text, onProgressCallback) {
+  // Show progress indicator if callback provided
+  if (onProgressCallback) {
+    onProgressCallback('Analyzing text...');
+    
+    // Add a small delay to show the progress message
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    onProgressCallback('Generating summary...');
+  }
+  
   const result = await currentPipeline(text, {
     max_new_tokens: 150,
     min_new_tokens: 20,
   });
+  
   const item = Array.isArray(result) ? result[0] : result;
   return item.summary_text || JSON.stringify(item, null, 2);
 }
