@@ -16,7 +16,7 @@ import {
   isModelGenerating,
   cancelCurrentDownload
 } from './inference.mjs';
-import { addUserMessage, addAiMessage, clearChat } from './chat.mjs';
+import { addUserMessage, addAiMessage, clearChat, showWelcomeState } from './chat.mjs';
 
 // ── Application state ────────────────────────────────────────────────────────
 let hasWebGPU = false;
@@ -56,6 +56,9 @@ function bindEventHandlers() {
 
   // Input keydown (Enter to send)
   $('userInput').addEventListener('keydown', handleKeyDown);
+
+  // Info button
+  $('infoBtn').addEventListener('click', handleInfoButton);
 
   // Mobile sidebar toggle
   $('hamburgerBtn').addEventListener('click', toggleSidebar);
@@ -98,6 +101,11 @@ function handleClearChat() {
 
 function handleCancelDownload() {
   cancelCurrentDownload();
+}
+
+function handleInfoButton() {
+  showWelcomeState();
+  closeSidebar();
 }
 
 async function handleSendMessage() {

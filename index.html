@@ -2,13 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
     <title>LOCALMIND — Transformers.js Runner</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg" />
-    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      sizes="16x16"
+      href="/favicon-16x16.svg"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      sizes="32x32"
+      href="/favicon-32x32.svg"
+    />
     <link rel="apple-touch-icon" href="/favicon.svg" />
 
     <!-- Meta Description -->
@@ -67,6 +80,7 @@
     <header>
       <button class="hamburger" id="hamburgerBtn">☰</button>
       <div class="logo">LOCAL<span>MIND</span></div>
+      <button class="info-btn" id="infoBtn" title="About LocalMind">?</button>
       <div class="status-bar">
         <div class="status-item">
           <div class="dot" id="dotModel"></div>
@@ -192,7 +206,64 @@
 
       <div class="panel-right">
         <div class="chat-area" id="chatArea">
-          <div class="empty-state" id="emptyState">
+          <div class="welcome-state" id="welcomeState">
+            <div class="welcome-header">
+              <div class="welcome-icon">
+                <img src="/favicon.svg" width="40" />
+              </div>
+              <div class="logo">LOCAL<span>MIND</span></div>
+              <p class="welcome-subtitle">
+                Run AI models locally in your browser
+              </p>
+            </div>
+
+            <div class="welcome-content">
+              <div class="welcome-section">
+                <h2>What is this?</h2>
+                <p>
+                  Run AI models completely locally in your browser. No data
+                  leaves your device — everything runs client-side using
+                  Transformers.js and WebGPU.
+                </p>
+                <div class="task-list">
+                  <div class="task-item">
+                    <em>💬 Text Generation</em> - Chat with AI, creative
+                    writing, code completion
+                  </div>
+                  <div class="task-item">
+                    <em>💡 Sentiment Analysis</em> - Detect if text is positive,
+                    negative, or neutral
+                  </div>
+                  <div class="task-item">
+                    <em>📝 Summarization</em> - Create concise summaries of
+                    longer texts
+                  </div>
+                  <div class="task-item">
+                    <em>❓ Question Answering</em> - Answer questions based on
+                    provided context
+                  </div>
+                  <div class="task-item">
+                    <em>🏷 Zero-Shot Classification</em> - Classify text into
+                    custom categories
+                  </div>
+                </div>
+              </div>
+
+              <div class="welcome-section">
+                <h2>How to use</h2>
+                <ol>
+                  <li>Select a task and model</li>
+                  <li>
+                    Click
+                    <strong style="color: var(--accent)">LOAD MODEL</strong>
+                  </li>
+                  <li>Start chatting</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div class="empty-state" id="emptyState" style="display: none">
             <div class="empty-icon">⬡</div>
             <p>
               Choose a task + model,<br />click
@@ -212,6 +283,34 @@
         </div>
       </div>
     </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-text">
+          Built by
+          <strong
+            ><a href="https://abhisaha.com" target="_blank" rel="noopener"
+              >Abhishek Saha</a
+            ></strong
+          >
+          to explore local AI inference in browsers
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/abhisaha1" target="_blank" rel="noopener"
+            >GitHub</a
+          >
+          <a
+            href="https://linkedin.com/in/abhishek-saha-dev"
+            target="_blank"
+            rel="noopener"
+            >LinkedIn</a
+          >
+          <a href="https://abhisaha.com" target="_blank" rel="noopener"
+            >Website</a
+          >
+        </div>
+      </div>
+    </footer>
 
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="error-toast" id="errorToast"></div>

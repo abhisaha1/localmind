@@ -40,7 +40,7 @@ export const MODELS = {
     {
       id: 'Xenova/bert-base-multilingual-uncased-sentiment',
       label: 'mBERT Sentiment',
-      size: '~167MB',
+      size: '~640MB',
       dtype: 'fp32',
       note: 'Multilingual 1–5 star sentiment classifier.',
     },

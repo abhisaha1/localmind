@@ -2,7 +2,7 @@ import { $, escapeHtml } from './ui.mjs';
 
 // ── Chat message management ──────────────────────────────────────────────────
 export function addSystemMessage(message) {
-  hideEmptyState();
+  hideWelcomeAndEmptyState();
   const msgDiv = document.createElement('div');
   msgDiv.className = 'msg';
   msgDiv.innerHTML = `
@@ -14,7 +14,7 @@ export function addSystemMessage(message) {
 }
 
 export function addUserMessage(message) {
-  hideEmptyState();
+  hideWelcomeAndEmptyState();
   const msgDiv = document.createElement('div');
   msgDiv.className = 'msg';
   msgDiv.innerHTML = `
@@ -43,15 +43,33 @@ export function addAiMessage(message = '', streaming = false) {
 
 export function clearChat() {
   const chatArea = $('chatArea');
+  const welcomeState = $('welcomeState');
   const emptyState = $('emptyState');
   
   chatArea.innerHTML = '';
+  chatArea.appendChild(welcomeState);
   chatArea.appendChild(emptyState);
+  
+  // Show welcome state, hide empty state
+  welcomeState.style.display = '';
+  emptyState.style.display = 'none';
+}
+
+export function showWelcomeState() {
+  hideWelcomeAndEmptyState();
+  const welcomeState = $('welcomeState');
+  welcomeState.style.display = '';
+}
+
+export function showEmptyState() {
+  hideWelcomeAndEmptyState();
+  const emptyState = $('emptyState');
   emptyState.style.display = '';
 }
 
 // ── Helper functions ─────────────────────────────────────────────────────────
-function hideEmptyState() {
+function hideWelcomeAndEmptyState() {
+  $('welcomeState').style.display = 'none';
   $('emptyState').style.display = 'none';
 }
 
