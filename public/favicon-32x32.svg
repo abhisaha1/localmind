@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <text x="16" y="16" style="
+    fill: #6366f1;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 30px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    font-weight: normal;
+  ">⬡</text>
+</svg>

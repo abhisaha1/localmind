@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <style>
+      .bg { fill: #0f0f23; }
+      .hex { 
+        fill: #6366f1; 
+        font-family: system-ui, -apple-system, sans-serif; 
+        font-size: 120px; 
+        text-anchor: middle; 
+        dominant-baseline: central; 
+      }
+      .title {
+        fill: #ffffff;
+        font-family: 'Syne', system-ui, sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+      .subtitle {
+        fill: #9ca3af;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 24px;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+    </style>
+  </defs>
+  <rect width="1200" height="630" class="bg"/>
+  <text x="600" y="200" class="hex">⬡</text>
+  <text x="600" y="320" class="title">LOCAL MIND</text>
+  <text x="600" y="380" class="subtitle">Transformers.js Runner</text>
+</svg>

@@ -60,8 +60,7 @@ header {
 .logo {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
-  font-size: 18px;
-  letter-spacing: 0.1em;
+  font-size: 16px;
   color: var(--accent);
 }
 .logo span {
@@ -370,6 +369,36 @@ select {
     padding: 16px;
   }
 }
+/* Global scrollbar styles for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg);
+}
+
+/* Firefox scrollbar styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--bg);
+}
+
+/* Chat area specific - thinner scrollbar */
 .chat-area::-webkit-scrollbar {
   width: 3px;
 }
@@ -468,7 +497,7 @@ select {
 textarea#userInput {
   flex: 1;
   resize: none;
-  height: 50px;
+  height: 80px;
   max-height: 140px;
   line-height: 1.6;
   padding: 13px 14px;

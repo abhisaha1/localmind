@@ -3,7 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LOCAL MIND — Transformers.js Runner</title>
+    <title>LOCALMIND — Transformers.js Runner</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Meta Description -->
+    <meta
+      name="description"
+      content="Run AI models locally in your browser with Transformers.js. Text generation, sentiment analysis, summarization, and more - all client-side with WebGPU acceleration."
+    />
+    <meta
+      name="keywords"
+      content="transformers.js, AI, machine learning, local AI, browser AI, text generation, sentiment analysis, WebGPU"
+    />
+    <meta name="author" content="Abhishek Saha" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://local-mind.dev/" />
+    <meta property="og:title" content="LOCALMIND — Transformers.js Runner" />
+    <meta
+      property="og:description"
+      content="Run AI models locally in your browser with Transformers.js. Text generation, sentiment analysis, summarization, and more - all client-side with WebGPU acceleration."
+    />
+    <meta property="og:image" content="/og-image.svg" />
+    <meta
+      property="og:image:alt"
+      content="LOCALMIND - Transformers.js Runner"
+    />
+    <meta property="og:site_name" content="LOCALMIND" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://local-mind.dev/" />
+    <meta
+      property="twitter:title"
+      content="LOCALMIND — Transformers.js Runner"
+    />
+    <meta
+      property="twitter:description"
+      content="Run AI models locally in your browser with Transformers.js. Text generation, sentiment analysis, summarization, and more - all client-side with WebGPU acceleration."
+    />
+    <meta property="twitter:image" content="/og-image.svg" />
+    <meta
+      property="twitter:image:alt"
+      content="LOCALMIND - Transformers.js Runner"
+    />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0f0f23" />
+    <meta name="msapplication-TileColor" content="#0f0f23" />
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;700;800&display=swap"
       rel="stylesheet"
@@ -78,7 +131,10 @@
             ></textarea>
           </div>
           <div id="configZeroShot" class="task-config">
-            <div class="field-label">Candidate labels (comma-separated)</div>
+            <div class="field-label">
+              Enter the possible categories you want the AI to classify the text
+              into. (comma-separated)
+            </div>
             <input
               type="text"
               id="zeroShotLabels"
