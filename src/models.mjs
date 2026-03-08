@@ -17,7 +17,7 @@ export const MODELS = {
       dtype: 'q4f16',
       chat: true,
       note: "Alibaba's ~0.6B parameter Qwen3 model. Thinking model.",
-      mobileDisable: true
+      mobileDisable: false
     },
     {
       id: 'onnx-community/Llama-3.2-1B-Instruct-q4f16',
