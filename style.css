@@ -391,25 +391,30 @@ select option:disabled {
 
 .gauge-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
 }
 .gauge-item {
-  padding: 10px;
+  padding: 6px 8px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border);
+  text-align: center;
 }
 .gauge-val {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--accent);
   line-height: 1;
 }
 .gauge-label {
-  font-size: 9px;
+  font-size: 8px;
   color: var(--muted);
-  margin-top: 3px;
-  letter-spacing: 0.1em;
+  margin-top: 2px;
+  letter-spacing: 0.05em;
+}
+
+.stats-section {
+  padding: 12px 16px !important;
 }
 
 .panel-right {

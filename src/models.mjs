@@ -99,20 +99,20 @@ export const MODELS = {
       dtype: 'fp32',
       note: 'Extractive QA. Write context in Config panel below and start asking questions.',
     },
-    {
-      id: 'Xenova/albert-base-squad2',
-      label: 'Albert SQuAD2',
-      size: '~125MB',
-      dtype: 'fp32',
-      note: 'More robust extractive QA. Write context in Config panel below and start asking questions.',
-    },
-    {
-      id: 'Xenova/bert-base-uncased-squad2',
-      label: 'MiniLM SQuAD2',
-      size: '~125MB',
-      dtype: 'fp32',
-      note: 'More robust extractive QA. Write context in Config panel below and start asking questions.',
-    },
+    // {
+    //   id: 'google-bert/bert-base-uncased',
+    //   label: 'g SQuAD2',
+    //   size: '~125MB',
+    //   dtype: 'fp32',
+    //   note: 'More robust extractive QA. Write context in Config panel below and start asking questions.',
+    // },
+    // {
+    //   id: 'Xenova/bert-base-uncased-squad2',
+    //   label: 'MiniLM SQuAD2',
+    //   size: '~125MB',
+    //   dtype: 'fp32',
+    //   note: 'More robust extractive QA. Write context in Config panel below and start asking questions.',
+    // },
   ],
   'zero-shot-classification': [
     {
