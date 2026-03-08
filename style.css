@@ -88,73 +88,21 @@ header {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--muted);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  padding: 4px 8px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 11px;
   font-family: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  margin-right: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .info-btn:hover {
   border-color: var(--accent);
   color: var(--accent);
-}
-
-@media (max-width: 768px) {
-  .info-btn {
-    margin-right: 8px;
-  }
-}
-.status-bar {
-  display: flex;
-  gap: 18px;
-  font-size: 11px;
-  color: var(--muted);
-}
-
-@media (max-width: 768px) {
-  .status-bar {
-    gap: 12px;
-    font-size: 10px;
-  }
-}
-.status-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--muted);
-  flex-shrink: 0;
-}
-.dot.green {
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
-}
-.dot.yellow {
-  background: var(--warn);
-  animation: pulse 1.5s infinite;
-}
-.dot.red {
-  background: var(--danger);
-}
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
 }
 
 main {
@@ -511,6 +459,9 @@ select option:disabled {
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media (max-width: 768px) {
@@ -520,7 +471,6 @@ select option:disabled {
 }
 
 .welcome-header {
-  text-align: center;
   margin-bottom: 24px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);

@@ -29,6 +29,9 @@ export async function initializeApp() {
   // Set up initial UI state
   populateModelDropdown($('taskSelect').value);
   updateConfigPanels($('taskSelect').value);
+  
+  // Show welcome state initially
+  showWelcomeState();
 
   // Bind event handlers
   bindEventHandlers();

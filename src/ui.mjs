@@ -8,9 +8,6 @@ export const $ = (id) => document.getElementById(id);
 let deviceInfo = null;
 
 export async function initializeWebGPU() {
-  const dot = $('dotWebGPU');
-  const lbl = $('statusWebGPU');
-
   try {
     // Detect comprehensive device information
     deviceInfo = await detectDeviceInfo();
@@ -25,8 +22,6 @@ export async function initializeWebGPU() {
     });
     
     if (deviceInfo.webgpu.available) {
-      dot.className = 'dot green';
-      lbl.textContent = 'WEBGPU ✓';
       console.log('✅ WebGPU available:', deviceInfo.webgpu);
       return true;
     }
@@ -39,8 +34,6 @@ export async function initializeWebGPU() {
     });
   }
 
-  dot.className = 'dot yellow';
-  lbl.textContent = 'WASM (no WebGPU)';
   console.log('⚠️ WebGPU not available, falling back to WASM');
   return false;
 }
@@ -254,32 +247,18 @@ export function setModelStatus(status, message) {
   
   // If mobile disabled, don't change button state
   if (isMobileDisabled && status !== 'loading') {
-    // Only update dot and status text, leave button alone
-    const statusMap = {
-      ready: { dot: 'dot green', text: 'READY' },
-      failed: { dot: 'dot red', text: 'FAILED' },
-      none: { dot: 'dot', text: 'NO MODEL' }
-    };
-    
-    const config = statusMap[status];
-    if (config) {
-      $('dotModel').className = config.dot;
-      $('statusModel').textContent = config.text;
-    }
     return;
   }
   
   const statusMap = {
-    loading: { dot: 'dot yellow', text: 'LOADING', btn: '⏳ LOADING…', disabled: true },
-    ready: { dot: 'dot green', text: 'READY', btn: '✓ READY – RELOAD?', disabled: false },
-    failed: { dot: 'dot red', text: 'FAILED', btn: '⬇ RETRY', disabled: false },
-    none: { dot: 'dot', text: 'NO MODEL', btn: '⬇ LOAD MODEL', disabled: false }
+    loading: { btn: '⏳ LOADING…', disabled: true },
+    ready: { btn: '✓ READY – RELOAD?', disabled: false },
+    failed: { btn: '⬇ RETRY', disabled: false },
+    none: { btn: '⬇ LOAD MODEL', disabled: false }
   };
 
   const config = statusMap[status];
   if (config) {
-    $('dotModel').className = config.dot;
-    $('statusModel').textContent = config.text;
     loadBtn.textContent = config.btn;
     loadBtn.disabled = config.disabled;
     
@@ -309,7 +288,6 @@ export function setInputsEnabled(enabled, placeholder = null) {
 export function updateStats({ latency, totalRuns, modelSize, device, cores }) {
   if (latency !== undefined) {
     $('gaugeLatency').textContent = latency;
-    $('statusLatency').textContent = latency + 'ms';
   }
   if (device !== undefined) {
     $('gaugeDevice').textContent = device;
@@ -317,13 +295,6 @@ export function updateStats({ latency, totalRuns, modelSize, device, cores }) {
   if (cores !== undefined) {
     $('gaugeCores').textContent = cores;
   }
-  // Commented out for now - can be re-enabled if needed
-  // if (totalRuns !== undefined) {
-  //   $('gaugeTotal').textContent = totalRuns;
-  // }
-  // if (modelSize !== undefined) {
-  //   $('gaugeSize').textContent = modelSize.replace('~', '');
-  // }
 }
 
 // ── Error handling ───────────────────────────────────────────────────────────
