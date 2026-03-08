@@ -150,6 +150,10 @@ main {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 100vh;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
 }
 
 @media (max-width: 768px) {
@@ -159,11 +163,15 @@ main {
     left: -300px;
     width: 300px;
     height: 100vh;
+    height: 100dvh;
     z-index: 1000;
     background: var(--bg);
     border-right: 1px solid var(--border);
     transition: left 0.3s ease;
     border-bottom: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 
   .panel-left.open {

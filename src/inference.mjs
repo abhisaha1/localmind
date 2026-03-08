@@ -1,6 +1,7 @@
 import { pipeline, TextStreamer } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.0/dist/transformers.min.js';
 import { getModelById } from './models.mjs';
-import { $, updateFileProgress, updateProgressHeader, clearProgressFiles, setModelStatus, showProgress, hideProgress, updateStats, showError } from './ui.mjs';
+import { $, updateFileProgress, updateProgressHeader, clearProgressFiles, setModelStatus, showProgress, hideProgress, updateStats, showError, getDeviceInfo } from './ui.mjs';
+import { formatDeviceString } from './device-info.mjs';
 import { addSystemMessage } from './chat.mjs';
 
 // ── State management ─────────────────────────────────────────────────────────
@@ -74,11 +75,18 @@ export async function loadModel(task, modelId, hasWebGPU = false) {
     };
 
     // Use WebGPU for text generation if available
+    const deviceInfo = getDeviceInfo();
     if (hasWebGPU && task === 'text-generation') {
       options.device = 'webgpu';
-      updateStats({ device: 'GPU' });
+      // Update with detailed GPU information when using WebGPU
+      const gpuDevice = deviceInfo?.webgpu?.info ? 
+        formatDeviceString(deviceInfo, 'compact') : 'WebGPU';
+      updateStats({ device: gpuDevice });
     } else {
-      updateStats({ device: 'CPU/WASM' });
+      // Update with CPU information when using WASM
+      const cpuDevice = deviceInfo ? 
+        formatDeviceString(deviceInfo, 'compact') : 'CPU/WASM';
+      updateStats({ device: cpuDevice });
     }
 
     // Check if download was cancelled before starting pipeline creation

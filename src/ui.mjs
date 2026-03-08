@@ -1,27 +1,52 @@
 import { getModelsByTask, getModelById } from './models.mjs';
+import { detectDeviceInfo, formatDeviceString, logDeviceDetails } from './device-info.mjs';
 
 // DOM helper
 export const $ = (id) => document.getElementById(id);
 
 // ── WebGPU detection and status management ───────────────────────────────────
+let deviceInfo = null;
+
 export async function initializeWebGPU() {
   const dot = $('dotWebGPU');
   const lbl = $('statusWebGPU');
 
   try {
-    if (navigator.gpu) {
-      const adapter = await navigator.gpu.requestAdapter();
-      if (adapter) {
-        dot.className = 'dot green';
-        lbl.textContent = 'WEBGPU ✓';
-        return true;
-      }
+    // Detect comprehensive device information
+    deviceInfo = await detectDeviceInfo();
+    
+    // Log detailed device information for debugging
+    logDeviceDetails(deviceInfo);
+    
+    // Update initial device stats
+    updateStats({ 
+      device: formatDeviceString(deviceInfo, 'compact'),
+      cores: deviceInfo.cpu.cores
+    });
+    
+    if (deviceInfo.webgpu.available) {
+      dot.className = 'dot green';
+      lbl.textContent = 'WEBGPU ✓';
+      console.log('✅ WebGPU available:', deviceInfo.webgpu);
+      return true;
     }
-  } catch (_) { }
+  } catch (error) {
+    console.error('Device detection error:', error);
+    // Fallback to basic detection
+    updateStats({ 
+      device: 'CPU/WASM',
+      cores: navigator.hardwareConcurrency || '?'
+    });
+  }
 
   dot.className = 'dot yellow';
   lbl.textContent = 'WASM (no WebGPU)';
+  console.log('⚠️ WebGPU not available, falling back to WASM');
   return false;
+}
+
+export function getDeviceInfo() {
+  return deviceInfo;
 }
 
 // ── Model dropdown management ────────────────────────────────────────────────
@@ -280,21 +305,25 @@ export function setInputsEnabled(enabled, placeholder = null) {
   }
 }
 
-// ── Stats display ────────────────────────────────────────────────────────────
-export function updateStats({ latency, totalRuns, modelSize, device }) {
+// ── Stats display ────────────────────────────────────────────────────────────────────────────
+export function updateStats({ latency, totalRuns, modelSize, device, cores }) {
   if (latency !== undefined) {
     $('gaugeLatency').textContent = latency;
     $('statusLatency').textContent = latency + 'ms';
   }
+  if (device !== undefined) {
+    $('gaugeDevice').textContent = device;
+  }
+  if (cores !== undefined) {
+    $('gaugeCores').textContent = cores;
+  }
+  // Commented out for now - can be re-enabled if needed
   // if (totalRuns !== undefined) {
   //   $('gaugeTotal').textContent = totalRuns;
   // }
   // if (modelSize !== undefined) {
   //   $('gaugeSize').textContent = modelSize.replace('~', '');
   // }
-  if (device !== undefined) {
-    $('gaugeDevice').textContent = device;
-  }
 }
 
 // ── Error handling ───────────────────────────────────────────────────────────
