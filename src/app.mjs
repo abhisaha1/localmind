@@ -87,6 +87,7 @@ async function handleLoadModel() {
   if (success) {
     const placeholder = getInputPlaceholder(task);
     setInputsEnabled(true, placeholder);
+    closeSidebar();
   }
 }
 
