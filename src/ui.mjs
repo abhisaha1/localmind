@@ -38,17 +38,66 @@ export function populateModelDropdown(task) {
   });
 
   updateModelInfo(task);
+  updateLoadButtonState(task);
 }
 
 export function updateModelInfo(task) {
   const modelId = $('modelSelect').value;
   const model = getModelById(task, modelId);
   const infoEl = $('modelInfo');
+  
+  // Mobile detection
+  const isMobile = window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
   if (model) {
-    infoEl.innerHTML = `<strong>${model.id}</strong><br>${model.note}<br>Size: <strong>${model.size}</strong> &middot; dtype: <strong>${model.dtype}</strong>`;
+    let infoHTML = `<strong>${model.id}</strong><br>${model.note}<br>Size: <strong>${model.size}</strong> &middot; dtype: <strong>${model.dtype}</strong>`;
+    
+    // Add mobile warning if model is disabled on mobile
+    if (isMobile && model.mobileDisable) {
+      infoHTML += `<br><br><div style="color: #ff6b6b; font-size: 11px; padding: 8px; background: rgba(255, 107, 107, 0.1); border-radius: 4px; margin-top: 8px;">
+        <strong>⚠️ Mobile Warning:</strong> This model is not supported on mobile devices due to high memory requirements. Use the Load Model button to see available alternatives.
+      </div>`;
+    }
+    
+    infoEl.innerHTML = infoHTML;
   } else {
     infoEl.innerHTML = '';
+  }
+  
+  // Update load button state whenever model info changes
+  updateLoadButtonState(task);
+}
+
+// ── Load button state management ──────────────────────────────────────────
+export function updateLoadButtonState(task) {
+  const modelId = $('modelSelect').value;
+  const model = getModelById(task, modelId);
+  const loadBtn = $('loadBtn');
+  
+  // Mobile detection
+  const isMobile = window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  // Check if current model is disabled on mobile
+  const isDisabledOnMobile = isMobile && model?.mobileDisable;
+  
+  if (isDisabledOnMobile) {
+    loadBtn.disabled = true;
+    loadBtn.textContent = '⚠️ MOBILE: NOT SUPPORTED';
+    loadBtn.style.background = 'rgba(255, 107, 107, 0.2)';
+    loadBtn.style.color = '#ff6b6b';
+    loadBtn.style.cursor = 'not-allowed';
+  } else {
+    // Reset to normal state if not disabled
+    const isLoading = loadBtn.textContent.includes('LOADING');
+    const isReady = loadBtn.textContent.includes('READY');
+    
+    if (!isLoading && !isReady) {
+      loadBtn.disabled = false;
+      loadBtn.textContent = '⬇ LOAD MODEL';
+      loadBtn.style.background = '';
+      loadBtn.style.color = '';
+      loadBtn.style.cursor = '';
+    }
   }
 }
 
@@ -172,8 +221,29 @@ export function clearProgressFiles() {
   }
 }
 
-// ── Model status management ──────────────────────────────────────────────────
+// ── Model status management ──────────────────────────────────────────────
 export function setModelStatus(status, message) {
+  // Check if button is currently disabled due to mobile restrictions
+  const loadBtn = $('loadBtn');
+  const isMobileDisabled = loadBtn.textContent.includes('MOBILE: NOT SUPPORTED');
+  
+  // If mobile disabled, don't change button state
+  if (isMobileDisabled && status !== 'loading') {
+    // Only update dot and status text, leave button alone
+    const statusMap = {
+      ready: { dot: 'dot green', text: 'READY' },
+      failed: { dot: 'dot red', text: 'FAILED' },
+      none: { dot: 'dot', text: 'NO MODEL' }
+    };
+    
+    const config = statusMap[status];
+    if (config) {
+      $('dotModel').className = config.dot;
+      $('statusModel').textContent = config.text;
+    }
+    return;
+  }
+  
   const statusMap = {
     loading: { dot: 'dot yellow', text: 'LOADING', btn: '⏳ LOADING…', disabled: true },
     ready: { dot: 'dot green', text: 'READY', btn: '✓ READY – RELOAD?', disabled: false },
@@ -185,8 +255,13 @@ export function setModelStatus(status, message) {
   if (config) {
     $('dotModel').className = config.dot;
     $('statusModel').textContent = config.text;
-    $('loadBtn').textContent = config.btn;
-    $('loadBtn').disabled = config.disabled;
+    loadBtn.textContent = config.btn;
+    loadBtn.disabled = config.disabled;
+    
+    // Reset custom mobile styling when setting normal states
+    loadBtn.style.background = '';
+    loadBtn.style.color = '';
+    loadBtn.style.cursor = '';
   }
 }
 

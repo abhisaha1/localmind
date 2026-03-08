@@ -8,6 +8,7 @@ export const MODELS = {
       dtype: 'q4',
       chat: true,
       note: "Alibaba's 0.5B instruction model. Good quality for size.",
+      mobileDisable: true
     },
     {
       id: 'onnx-community/Qwen3-0.6B-ONNX',
@@ -16,6 +17,7 @@ export const MODELS = {
       dtype: 'q4f16',
       chat: true,
       note: "Alibaba's ~0.6B parameter Qwen3 model. Thinking model.",
+      mobileDisable: true
     },
     {
       id: 'onnx-community/Llama-3.2-1B-Instruct-q4f16',
@@ -24,6 +26,7 @@ export const MODELS = {
       dtype: 'q4f16',
       chat: true,
       note: "Meta's Llama 3.2 1B — best quality here. Larger download.",
+      mobileDisable: true
     },
   ],
   'sentiment-analysis': [
