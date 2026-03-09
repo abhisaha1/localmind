@@ -125,7 +125,7 @@ export const MODELS = {
     {
       id: 'Xenova/nli-deberta-v3-small',
       label: 'DeBERTa v3 Small',
-      size: '~175MB',
+      size: '~540MB',
       dtype: 'fp32',
       note: 'Higher accuracy zero-shot.',
     },
