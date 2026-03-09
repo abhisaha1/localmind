@@ -1,4 +1,4 @@
-import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.0/dist/transformers.min.js';
+import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers/dist/transformers.min.js';
 import { getModelById } from '../models.mjs';
 import { setModelStatus, showProgress, hideProgress, updateStats, showError, getDeviceInfo, clearProgressFiles } from '../ui.mjs';
 import { addSystemMessage } from '../chat.mjs';
@@ -22,13 +22,13 @@ export async function loadModel(task, modelId, hasWebGPU = false) {
   const modelMeta = getModelById(task, modelId);
 
   setModelStatus('loading');
-  
+
   // Small delay to ensure clean UI transition after cancel
   await new Promise(resolve => setTimeout(resolve, 100));
-  
+
   // Force clear any lingering progress elements
   clearProgressFiles();
-  
+
   showProgress();
 
   addSystemMessage(`Loading ${modelId}\n${modelMeta?.size || ''} · dtype:${modelMeta?.dtype || 'auto'}`);
@@ -73,16 +73,16 @@ export async function loadModel(task, modelId, hasWebGPU = false) {
 // ── Device configuration ─────────────────────────────────────────────────────
 function configureDeviceAndStats(hasWebGPU, task, options) {
   const deviceInfo = getDeviceInfo();
-  
+
   if (hasWebGPU && task === 'text-generation') {
     options.device = 'webgpu';
     // Update with detailed GPU information when using WebGPU
-    const gpuDevice = deviceInfo?.webgpu?.info ? 
+    const gpuDevice = deviceInfo?.webgpu?.info ?
       formatDeviceString(deviceInfo, 'compact') : 'WebGPU';
     updateStats({ device: gpuDevice });
   } else {
     // Update with CPU information when using WASM
-    const cpuDevice = deviceInfo ? 
+    const cpuDevice = deviceInfo ?
       formatDeviceString(deviceInfo, 'compact') : 'CPU/WASM';
     updateStats({ device: cpuDevice });
   }
