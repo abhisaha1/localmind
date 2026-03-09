@@ -133,6 +133,18 @@ main {
   scrollbar-color: var(--border) transparent;
 }
 
+/* Make the config section grow to push load model and stats to bottom */
+.panel-section:nth-child(3) {
+  flex-grow: 1;
+}
+
+/* Keep load model and stats sections at bottom */
+.panel-section:nth-child(4),
+.stats-section {
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
 @media (max-width: 768px) {
   .panel-left {
     position: fixed;
